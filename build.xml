@@ -14,6 +14,11 @@
         <pathelement location="bin"/>
         <pathelement location="dep-jar/com.ibm.ws.javaee.jaxrs.1.1_1.0.1.jar"/>
     </path>
+    <path id="junitClasspathDir">
+        <pathelement location="dep-jar/junit.jar"/>
+
+        <pathelement location="dep-jar/org.hamcrest.core_1.3.0.v201303031735.jar"/>
+    </path>
     <target name="init">
         <mkdir dir="bin"/>
     </target>
@@ -31,7 +36,9 @@
         <javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}"
 		includeantruntime="false">
             <src path="src"/>
+        	<src path="test"/>
             <classpath refid="classpathDir"/>
+        	<classpath refid="junitClasspathDir"/>
         </javac>
     </target>
  
@@ -46,5 +53,20 @@
 	  	<classes dir="bin"/>
 	  </war>
    </target>
+	
+   <target name="unittest">
+   	<junit>
+      <classpath refid="junitClasspathDir"/>
+   	  <classpath refid="classpathDir"/>
+   		
+
+   	  <!--
+   	  <formatter type="plain"/>
+   	  <test name="com.ibm.cloudoe.samples.HelloResourceTest" outfile="result">
+   		<formatter type="xml"/>
+   	  </test>
+   		-->
+   	</junit>
+  </target>
 
 </project>
